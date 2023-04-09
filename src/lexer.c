@@ -235,6 +235,6 @@ char* lexer_get_current_char_as_string(lexer_T* lexer) {
     return string;
 }
 
-int lexer_strncmp(lexer_T* lexer, char* str) {
+bool lexer_strncmp(lexer_T* lexer, char* str) {
     return !strncmp(lexer->contents + lexer->index, str, strlen(str));
 }

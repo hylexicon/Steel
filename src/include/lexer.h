@@ -1,6 +1,8 @@
 #pragma once
 #include "token.h"
 
+#include <stdbool.h>
+
 typedef struct LEXER_STRUCT {
     char current;
     unsigned int index;
@@ -27,4 +29,4 @@ token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token);
 
 char* lexer_get_current_char_as_string(lexer_T* lexer);
 
-int lexer_strncmp(lexer_T* lexer, char* str);
+bool lexer_strncmp(lexer_T* lexer, char* str);
