@@ -28,7 +28,10 @@ void lexer_skip_whitespace(lexer_T* lexer) {
 
 token_T* lexer_get_next_token(lexer_T* lexer) {
     while (lexer->current != '\0' && lexer->index < strlen(lexer->contents)) {
-        if (lexer->current == ' ')
+        if (lexer_strncmp(lexer, "    "))
+            return lexer_collect_operator(lexer, TOKEN_INDENT, "    ");
+
+        else if (lexer->current == ' ')
             lexer_skip_whitespace(lexer);
 
         else if (isalnum(lexer->current))
