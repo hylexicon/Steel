@@ -211,7 +211,7 @@ token_T* lexer_collect_operator(lexer_T* lexer, int type, char* operator) {
 
     while (operatorLength > 0) {
         lexer_advance(lexer);
-        operator--;
+        operatorLength--;
     }
 
     return init_token(type, operator);
@@ -236,5 +236,5 @@ char* lexer_get_current_char_as_string(lexer_T* lexer) {
 }
 
 int lexer_strncmp(lexer_T* lexer, char* str) {
-    return strncmp(lexer->contents + lexer->index, str, strlen(str));
+    return !strncmp(lexer->contents + lexer->index, str, strlen(str));
 }
