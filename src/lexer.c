@@ -152,9 +152,6 @@ token_T* lexer_get_next_token(lexer_T* lexer) {
             case '|':
                 return lexer_collect_single_char(lexer, TOKEN_BAR);
 
-            case '!':
-                return lexer_collect_single_char(lexer, TOKEN_EXCLAMATION);
-
             case '.':
                 return lexer_collect_single_char(lexer, TOKEN_DOT);
 

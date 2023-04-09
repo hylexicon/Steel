@@ -1,5 +1,5 @@
-#ifndef TOKEN_H
-#define TOKEN_H
+#pragma once
+
 typedef struct TOKEN_STRUCT {
     enum {
         TOKEN_ID,
@@ -31,7 +31,6 @@ typedef struct TOKEN_STRUCT {
         TOKEN_NEWLINE,
         TOKEN_AMPERSAND,
         TOKEN_BAR,
-        TOKEN_EXCLAMATION,
         TOKEN_PLUS_EQUALS,
         TOKEN_DASH_EQUALS,
         TOKEN_STAR_EQUALS,
@@ -54,4 +53,3 @@ typedef struct TOKEN_STRUCT {
 } token_T;
 
 token_T* init_token(int type, char* value);
-#endif
