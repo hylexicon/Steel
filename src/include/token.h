@@ -46,7 +46,8 @@ typedef struct TOKEN_STRUCT {
         TOKEN_COMMA,
         TOKEN_TILDE,
         TOKEN_QUESTION,
-        TOKEN_DOUBLE_QUESTION
+        TOKEN_DOUBLE_QUESTION,
+        TOKEN_EOF
     } type;
 
     char* value;
