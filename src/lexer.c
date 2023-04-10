@@ -1,6 +1,7 @@
 #include "include/lexer.h"
 
 #include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -166,10 +167,15 @@ token_T* lexer_get_next_token(lexer_T* lexer) {
 
             case '?':
                 return lexer_collect_single_char(lexer, TOKEN_QUESTION);
+
+            case '\0':
+                break;
+
+            default:
+                printf("Unexpected character '%c'\n", lexer->current);
+                exit(1);
         }
     }
-
-    return init_token(TOKEN_EOF, "\0");
 }
 
 token_T* lexer_collect_string(lexer_T* lexer) {
