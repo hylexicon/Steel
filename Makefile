@@ -9,11 +9,11 @@ $(exec): $(objects)
 %.o: %.c include/%.h
 	gcc -c $(flags) $< -o $@
 
-lexer: rules/lexer.l
-	flex -o src/lex.c --header-file=src/include/lex.h rules/lexer.l 
+lexer: rules/lex.l
+	flex -o src/lex.c --header-file=src/include/lex.h rules/lex.l 
 
-parser: rules/parser.y rules/lexer.l
-	bison -o src/parse.c --defines=src/include/parse.h rules/parser.y
+parser: rules/parse.y rules/lexer.l
+	bison -o src/parse.c --defines=src/include/parse.h rules/parse.y
 
 install:
 	make
