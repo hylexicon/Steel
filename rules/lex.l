@@ -7,43 +7,52 @@
 
 #include "parser.tab.h"
 %}
-
-integer [0-9]+
-float   [0-9]+[.][0-9]+
+short   -*[0-9]{1,4}
+integer -*[0-9]{5,9}
+long    -*[0-9]{10,18}
+llong   -*[0-9]{19,}
+float   -*[0-9]{1,36}[.][0-9]{1,36}
+double  -*[0-9]{1,306}[.][0-9]{1,306}
 char    \"([^'\\\n]|\\.)\"
 string  \"(\\.|[^"\\])*\"
 bool    true|false
 id  [A-Za-z][A-Za-z0-9]*
 
 %%
-{integer}   {
-    long value = atoll(yytext);
+{short}   {
+    yylval.s = atos(yytext);
 
-    if (value > SHRT_MIN && value < SHRT_MAX)
-        yylval.s = (short) yytext;
-    
-    else if (value > INT_MIN && value < INT_MAX)
-        yylval.integer = (int)yytext);
-    
-    else if (value > LONG_MIN && value < LONG_MAX)
-        yylval.l = (long) value;
-    
-    else if (value < LONG_MIN && value > LONG_MAX)
-        yylval.ll = value;
-    
-    return LIT_INT;
+    return LIT_SH
+}
+
+{integer}   {
+    yylval.integer = atoi(yytext);
+
+    return LIT_INT
+}
+
+{long}   {
+    yylval.l = atol(yytext);
+
+    return LIT_LONG
+}
+
+{llong}   {
+    yylval.ll = atoll(yytext);
+
+    return LIT_LLONG
 }
 
 {float} {
-    double value = atof(yytext);
-
-    if (value > FLT_MIN && value < FLT_MAX)
-        yyval.f = (float) value;
-    
-    else
-        yyval.d = value;
+    yylval.f = strtof(yytext, NULL);
 
     return LIT_FL;
+}
+
+{double} {
+    yylval.d = atof(yytext);
+
+    return LIT_D;
 }
 
 {char}  {
@@ -66,7 +75,7 @@ id  [A-Za-z][A-Za-z0-9]*
 {bool}  {
     yylval.boolean = strcmp(yytext, "true") == 0
 
-    return TOK_BOOL_LIT;
+    return LIT_BOOL;
 }
 
 "+" { return PLUS; }
@@ -78,7 +87,7 @@ id  [A-Za-z][A-Za-z0-9]*
 ">>"    { return DGT; }
 
 "+=" { return PEQ; }
-"-=" { return DEQ; }
+"-=" { return MEQ; }
 "*=" { return STEQ; }
 "/=" { return SLEQ; }
 "%=" { return PCTEQ; }
@@ -148,3 +157,4 @@ id  [A-Za-z][A-Za-z0-9]*
 [\n\r]
 %%
 
+yywrap() {}

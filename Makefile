@@ -12,7 +12,7 @@ $(exec): $(objects)
 lexer: rules/lex.l
 	flex -o src/lex.c --header-file=src/include/lex.h rules/lex.l 
 
-parser: rules/parse.y rules/lexer.l
+parser: rules/parse.y rules/lex.l
 	bison -o src/parse.c --defines=src/include/parse.h rules/parse.y
 
 install:
@@ -22,3 +22,7 @@ install:
 clean:
 	-rm *.exe
 	-rm *.o
+	-rm src/lex.c
+	-rm src/parse.c
+	-rm src/include/lex.h
+	-rm src/include/parse.h
